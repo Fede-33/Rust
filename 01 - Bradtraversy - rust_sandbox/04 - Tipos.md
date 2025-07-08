@@ -106,4 +106,69 @@ Luego, para acceder a esos datos, se utilizan los índices internos, mediante si
     println!("{} es de {} y tiene {}", persona.0, persona.1, persona.2);
 
 ## ARRAYS:
-Conjunto de datos ordenados.
+Los arreglos en Rust son conjuntos de datos ordenados y fijos, que deben ser del mismo tipo. Al momento de definir un **array** se debe especificar el tipo de dato y la extensión, dentro de una sintaxis de llaves, y luego realizar la asignación de todos los elementos, dentro de otra sintaxis de llaves:
+
+    let numbers: [i32; 5] = [1, 2, 3, 4, 5];
+
+Para acceder a un dato dentro de un arreglo, se utiliza la sintaxis de llaves y su índice:
+
+    println!("{}", numbers[0]);
+
+Si lo que se busca es acceder a todo el arreglo, es necesarió el *debug placeholder*:
+
+    println!("{:?}", numbers);
+
+En caso de que se necesite reasignar valores, es posible hacer los **arrays** mutables mediante la sintaxis *let mut* en su definición. Esto hará posible la reasignación de sus elementos cuando sea necesario, pero siempre tendrá que tener la misma cantidad de datos y del mismo tipo definido originalmente. La reasignación se realiza con la sintaxis de llaves y el índice:
+
+    let mut numbers: [i32; 5] = [1, 2, 3, 4, 5];
+    numbers[2] = 30;
+
+Para obtener la extensión de datos del arreglo se puede utilizar la función *.len()*:
+
+    println!("Array Length: {}", numbers.len())
+
+Los arreglos están alojados en el *Stack*, es decir que su acceso es más rápido y es un espacio de memoria más volátil que el *heap*. Mediante la librería *std* y la función *mem* es posible obtener la cantidad de bytes que ocupa en memoria. Se debe referenciar el arreglo con *&* y dentro de la función *size_of_val()*:
+
+    println!("{} bytes", std::mem::size_of_val(&numbers));
+
+Siempre puede aclararse en la parte superior del archivo que la función *mem* será importada desde la librería *std*, mediante la sintaxis:
+
+    use std::mem;
+
+Y eso hará que luego, al llamar a esa función, siempre sea considerada desde la librería *std*, acortando la sintaxis a:
+
+    println!("{} bytes", mem::size_of_val(&numbers));
+
+Para copiar o extraer parte de un **array** se utiliza la definición:
+
+    let slice: &[i32] = &numbers;
+    println!("Copia completa {:?}", slice);
+
+En este caso, el arreglo *slice* será una copia exacta del arreglo *numbers*, pero inmutable. Si se quieren extraer algunos de los índices, se deben especificar entre llaves, por ejemplo extrayendo los índices 0 y 2:
+
+    let slice: &[i32] = &numbers[0..2];
+    println!("Copia parcial {:?}", slice);  
+
+
+## VECTORES:
+En Rust son similares a los arreglos en cuanto sus elementos son del mismo tipo, pero los vectores permiten cambiar su extensión de elementos, por ende, son más utilizados que los arreglos por su versatilidad. Para definir un vector se realiza de forma muy similar a lo anterior, pero con la sintaxis *Vec<>* y *vec!*:
+
+    let mut numbers: Vec<i32> = vec![1, 2, 3, 4, 5];
+
+La particularidad de incluir o quitar elementos de un vector, se logra mediante las funciones *.push()* y *.pop()*. Por ejemplo, al vector se le agregará un número más, el 6 y luego se lo quitará, puesto que es el último elemento del vector:
+
+    numbers.push(6);
+    numbers.pop();
+
+Es posible iterar dentro de los vectores mediante la función *.iter()* que devuelve una lista ordenada de los elementos, en el siguiente caso asignándolos a la variable *x* que luego se imprime línea a línea:
+
+    for x in numbers.iter(){
+        println!("{}", x)
+    }
+
+También se puede modificar cada uno de los elementos del vector mediante la iteración, por ejemplo multiplicándolo por dos, esto cambiará el vector original, tal como trabaja la función *map* en otros lenguajes:
+
+    for x in numbers.iter_mut() {
+        *x *= 2;
+    }
+    println!("Numbers * 2: {:?}")
