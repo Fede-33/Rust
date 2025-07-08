@@ -1,0 +1,1 @@
+/mnt/7602826354FB92A7/Estudio/Programación/09\ -\ Rust/01\ -\ Bradtraversy\ -\ rust_sandbox/code/target/debug/code: /mnt/7602826354FB92A7/Estudio/Programación/09\ -\ Rust/01\ -\ Bradtraversy\ -\ rust_sandbox/code/src/main.rs /mnt/7602826354FB92A7/Estudio/Programación/09\ -\ Rust/01\ -\ Bradtraversy\ -\ rust_sandbox/code/src/tuples.rs
